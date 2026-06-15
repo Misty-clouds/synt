@@ -1,0 +1,44 @@
+# Traefik static configuration.
+
+api:
+  dashboard: false
+
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      # Redirect all plain HTTP traffic to HTTPS.
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
+  websecure:
+    address: ":443"
+    http:
+      middlewares:
+        - "secure-headers@file"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    # Only expose containers that explicitly opt in via labels.
+    exposedByDefault: false
+    network: synt_web
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      # Change this to your own address; Let's Encrypt sends expiry notices here.
+      email: "adenijitaoheed26@gmail.com"
+      storage: /etc/traefik/acme.json
+      httpChallenge:
+        entryPoint: web
+
+log:
+  level: INFO
+
+accessLog: {}

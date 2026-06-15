@@ -28,3 +28,6 @@ pnpm-debug.log*
 coverage
 .vercel
 *.tsbuildinfo
+
+# traefik certificate store (contains private keys)
+infra/traefik/acme.json
