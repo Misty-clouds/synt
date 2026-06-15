@@ -4,16 +4,16 @@ import type { CaseFile, Investigation } from '@synt/shared';
 import { FileText, Network, ShieldCheck, X } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { CaseFileView } from '../../../components/CaseFileView';
-import { HypothesisRail } from '../../../components/HypothesisRail';
-import { InvestigationGraph } from '../../../components/InvestigationGraph';
-import { Logo } from '../../../components/Logo';
-import { NlCommandBox } from '../../../components/NlCommandBox';
-import { ResponseDrawer } from '../../../components/ResponseDrawer';
-import { ThoughtStream } from '../../../components/ThoughtStream';
-import { api } from '../../../lib/api';
-import { cx, fmtStatus, severityPill, statusPill } from '../../../lib/ui';
-import { useInvestigationStream } from '../../../lib/useInvestigationStream';
+import { CaseFileView } from '@/components/CaseFileView';
+import { HypothesisRail } from '@/components/HypothesisRail';
+import { InvestigationGraph } from '@/components/InvestigationGraph';
+import { Logo } from '@/components/Logo';
+import { NlCommandBox } from '@/components/NlCommandBox';
+import { ResponseDrawer } from '@/components/ResponseDrawer';
+import { ThoughtStream } from '@/components/ThoughtStream';
+import { api } from '@/lib/api';
+import { cx, fmtStatus, severityPill, statusPill } from '@/lib/ui';
+import { useInvestigationStream } from '@/lib/useInvestigationStream';
 
 export default function TheatrePage() {
   const id = useParams().id as string;
@@ -90,6 +90,8 @@ export default function TheatrePage() {
           <div className="h-[calc(100%-49px)]">
             <InvestigationGraph nodes={stream.nodes} edges={stream.edges} focusNodeId={stream.focusNodeId} />
           </div>
+          {/* Floating command bar overlays the graph; columns keep full height. */}
+          <NlCommandBox investigationId={id} />
         </section>
 
         <section className="flex min-h-0 flex-col border-l border-app-border bg-app-surface">
@@ -117,9 +119,6 @@ export default function TheatrePage() {
           </div>
         </section>
       </div>
-
-      {/* NL command box */}
-      <NlCommandBox investigationId={id} />
 
       {/* Response playbook drawer */}
       {responseOpen && caseFile && (

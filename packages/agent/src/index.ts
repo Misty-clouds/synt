@@ -65,6 +65,8 @@ export async function* runInvestigation(
   });
 
   const knownEntities = new Set<string>();
+  const knownEdges = new Set<string>();
+  const triggerIds = new Set(signal.entities.map(entityId));
   const primary: EntityRef | undefined = signal.entities[0];
 
   yield ev('investigation_started', `Investigation opened for: ${signal.title}`, {
@@ -131,27 +133,38 @@ export async function* runInvestigation(
       sample: rows.slice(0, 3),
     });
 
-    // Discover entities + edges from the evidence (drives the live graph). Cap per
-    // query so high-volume results (e.g. mass file renames) don't flood the graph.
-    const discovered = dedupeForGraph(extractEntities(rows), knownEntities, 10);
+    // Discover entities + edges from the evidence (drives the live graph). Cap new
+    // nodes per query so high-volume results (e.g. mass file renames) don't flood it.
+    const extracted = extractEntities(rows);
+    const discovered = dedupeForGraph(extracted, knownEntities, 10);
     for (const e of discovered) {
+      knownEntities.add(entityId(e));
+      yield ev('entity_discovered', `Discovered ${e.type}: ${e.value}`, {
+        node: { id: entityId(e), type: e.type, label: e.value, suspicious: true },
+      });
+    }
+
+    // Link the primary entity to the new nodes AND to any trigger entity that turns up
+    // in this evidence (so e.g. a compromised user connects to the attacker IP rather
+    // than floating disconnected). Edges are de-duplicated across the investigation.
+    const edgeTargets = [
+      ...discovered,
+      ...extracted.filter((e) => triggerIds.has(entityId(e)) && !discovered.some((d) => entityId(d) === entityId(e))),
+    ];
+    for (const e of edgeTargets) {
+      if (!primary) break;
       const id = entityId(e);
-      if (!knownEntities.has(id)) {
-        knownEntities.add(id);
-        yield ev('entity_discovered', `Discovered ${e.type}: ${e.value}`, {
-          node: { id, type: e.type, label: e.value, suspicious: true },
-        });
-      }
-      if (primary && id !== entityId(primary)) {
-        yield ev('edge_discovered', `${primary.value} → ${e.value}`, {
-          edge: {
-            id: `${entityId(primary)}->${id}:${e.field}`,
-            from: entityId(primary),
-            to: id,
-            relation: RELATION_BY_FIELD[e.field] ?? 'related',
-          },
-        });
-      }
+      const edgeId = `${entityId(primary)}->${id}`;
+      if (id === entityId(primary) || knownEdges.has(edgeId)) continue;
+      knownEdges.add(edgeId);
+      yield ev('edge_discovered', `${primary.value} → ${e.value}`, {
+        edge: {
+          id: edgeId,
+          from: entityId(primary),
+          to: id,
+          relation: RELATION_BY_FIELD[e.field] ?? 'related',
+        },
+      });
     }
 
     // Update belief — let the model read the evidence and update confidence.

@@ -4,6 +4,7 @@ import type { GraphEdge, GraphNode } from '@synt/shared';
 import {
   Background,
   BackgroundVariant,
+  Controls,
   ReactFlow,
   ReactFlowProvider,
   useReactFlow,
@@ -18,6 +19,8 @@ import {
   forceLink,
   forceManyBody,
   forceSimulation,
+  forceX,
+  forceY,
   type SimulationLinkDatum,
   type SimulationNodeDatum,
 } from 'd3-force';
@@ -47,18 +50,21 @@ function layout(nodes: GraphNode[], edges: GraphEdge[], prev: Record<string, Pos
     .map((e) => ({ source: e.from, target: e.to }));
 
   forceSimulation<LNode>(sim)
-    .force('charge', forceManyBody().strength(-700))
+    .force('charge', forceManyBody().strength(-520))
     .force(
       'link',
       forceLink<LNode, SimulationLinkDatum<LNode>>(links)
         .id((d) => d.id)
-        .distance(160)
-        .strength(0.5),
+        .distance(135)
+        .strength(0.6),
     )
     .force('center', forceCenter(0, 0))
-    .force('collide', forceCollide(72))
+    // Gravity keeps even disconnected nodes near the cluster so fitView stays framed.
+    .force('x', forceX(0).strength(0.09))
+    .force('y', forceY(0).strength(0.09))
+    .force('collide', forceCollide(78))
     .stop()
-    .tick(320);
+    .tick(400);
 
   return Object.fromEntries(sim.map((n) => [n.id, { x: n.x ?? 0, y: n.y ?? 0 }]));
 }
@@ -101,10 +107,15 @@ function Inner({
     labelBgPadding: [4, 2] as [number, number],
   }));
 
-  // Keep the whole graph framed as it self-assembles.
+  // Keep the whole graph framed and readable as it self-assembles. Re-fit shortly after
+  // the last node lands so the final layout is centered and legible (not zoomed out).
   useEffect(() => {
-    const t = setTimeout(() => fitView({ padding: 0.25, duration: 500, maxZoom: 1.4 }), 60);
-    return () => clearTimeout(t);
+    const t1 = setTimeout(() => fitView({ padding: 0.18, duration: 450, maxZoom: 1.6 }), 80);
+    const t2 = setTimeout(() => fitView({ padding: 0.18, duration: 450, maxZoom: 1.6 }), 700);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, [nodes.length, edges.length, fitView]);
 
   if (nodes.length === 0) {
@@ -121,14 +132,16 @@ function Inner({
       edges={rfEdges}
       nodeTypes={nodeTypes}
       fitView
-      minZoom={0.3}
-      maxZoom={1.8}
+      fitViewOptions={{ padding: 0.18, maxZoom: 1.6 }}
+      minZoom={0.4}
+      maxZoom={2}
       proOptions={{ hideAttribution: true }}
       nodesConnectable={false}
       edgesFocusable={false}
       className="bg-app-surface"
     >
       <Background variant={BackgroundVariant.Dots} gap={26} size={1} color="#1f1f1f" />
+      <Controls position="top-left" showInteractive={false} className="!shadow-lg" />
     </ReactFlow>
   );
 }

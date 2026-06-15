@@ -27,29 +27,31 @@ export function EntityNode({ data }: NodeProps & { data: EntityNodeData }) {
   const Icon = ICON[data.type] ?? Network;
 
   return (
-    <div className="synt-node-in flex flex-col items-center">
+    <div className="synt-node-in flex w-[140px] flex-col items-center">
       <Handle type="target" position={Position.Top} className="!h-1 !w-1 !border-0 !bg-transparent" />
       <Handle type="source" position={Position.Bottom} className="!h-1 !w-1 !border-0 !bg-transparent" />
 
       <div
-        className="relative flex h-12 w-12 items-center justify-center rounded-full border-2 bg-app-card"
+        className="relative flex h-16 w-16 items-center justify-center rounded-full border-2 bg-app-card shadow-lg"
         style={{ borderColor: data.suspicious ? '#ef4444' : color }}
       >
         {data.focus && (
           <span
-            className="absolute inset-[-6px] rounded-full"
-            style={{ boxShadow: '0 0 0 2px #0055FF, 0 0 16px 2px rgba(0,85,255,0.6)' }}
+            className="absolute inset-[-7px] rounded-full"
+            style={{ boxShadow: '0 0 0 2px #0055FF, 0 0 18px 3px rgba(0,85,255,0.6)' }}
           />
         )}
         {data.suspicious && (
-          <span className="synt-pulse absolute inset-[-4px] rounded-full border border-red-500/50" />
+          <span className="synt-pulse absolute inset-[-5px] rounded-full border border-red-500/50" />
         )}
-        <Icon size={18} style={{ color }} />
+        <Icon size={24} style={{ color }} />
       </div>
 
-      <div className="mt-1.5 max-w-[120px] text-center">
-        <p className="truncate text-[11px] font-medium text-zinc-200">{data.label}</p>
-        <p className="text-[8px] uppercase tracking-wide text-zinc-600">{data.type}</p>
+      <div className="mt-2 w-full text-center">
+        <p className="truncate text-[13px] font-semibold text-ink">{data.label}</p>
+        <p className="text-[9px] font-medium uppercase tracking-wide" style={{ color }}>
+          {data.type}
+        </p>
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import { AppShell } from '../components/AppShell';
-import { MobileGate } from '../components/MobileGate';
+import { AuthProvider } from '@/components/auth/AuthProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -12,10 +11,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className="min-h-screen bg-app-bg text-white antialiased">
-        <MobileGate />
-        <div className="hidden lg:block">
-          <AppShell>{children}</AppShell>
-        </div>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

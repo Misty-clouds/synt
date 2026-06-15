@@ -1,9 +1,10 @@
 'use client';
 
-import { LayoutDashboard, Radar, ShieldAlert, type LucideIcon } from 'lucide-react';
+import { LayoutDashboard, LogOut, ShieldAlert, type LucideIcon } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cx } from '../lib/ui';
+import { useAuth } from './auth/AuthProvider';
 import { Logo } from './Logo';
 
 interface NavItem {
@@ -14,22 +15,29 @@ interface NavItem {
 }
 
 const NAV: NavItem[] = [
-  { name: 'Dashboard', icon: LayoutDashboard, href: '/', match: (p) => p === '/' },
+  { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard', match: (p) => p === '/dashboard' },
   { name: 'Investigations', icon: ShieldAlert, href: '/investigations', match: (p) => p.startsWith('/investigations') },
 ];
 
 /** Permanent collapsed icon rail (68px). */
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, logout } = useAuth();
+
+  function signOut() {
+    logout();
+    router.replace('/');
+  }
+
+  const initial = (user?.name || user?.email || '?').charAt(0).toUpperCase();
 
   return (
     <aside className="fixed left-0 top-0 z-40 flex h-screen w-[68px] flex-col items-center border-r border-app-border bg-app-bg px-2 py-5">
-      {/* Logo mark → home */}
-      <Logo size={34} />
+      <Logo size={34} href="/dashboard" />
 
       <div className="mt-7 mb-4 h-px w-8 bg-app-border" />
 
-      {/* Nav icons */}
       <nav className="flex flex-1 flex-col items-center gap-2">
         {NAV.map((item) => {
           const isActive = item.match(pathname);
@@ -55,12 +63,21 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Footer — agent status */}
-      <div
-        title="Agent online — watching Splunk notables"
-        className="flex h-10 w-10 items-center justify-center rounded-xl border border-app-border bg-app-card"
-      >
-        <Radar size={17} className="synt-pulse text-green-500" />
+      {/* Footer — user + sign out */}
+      <div className="flex flex-col items-center gap-2">
+        <div
+          title={user?.email ?? 'Account'}
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-b from-[#0a6dff] to-[#0042c8] text-sm font-bold text-white"
+        >
+          {initial}
+        </div>
+        <button
+          onClick={signOut}
+          title="Sign out"
+          className="flex h-10 w-10 items-center justify-center rounded-xl text-dim transition-colors hover:bg-app-card hover:text-red-400"
+        >
+          <LogOut size={18} />
+        </button>
       </div>
     </aside>
   );

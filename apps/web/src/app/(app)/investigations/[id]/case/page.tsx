@@ -3,9 +3,9 @@
 import type { CaseFile } from '@synt/shared';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { CaseFileView } from '../../../../components/CaseFileView';
-import { Logo } from '../../../../components/Logo';
-import { api } from '../../../../lib/api';
+import { CaseFileView } from '@/components/CaseFileView';
+import { Logo } from '@/components/Logo';
+import { api } from '@/lib/api';
 
 export default function CasePage() {
   const id = useParams().id as string;

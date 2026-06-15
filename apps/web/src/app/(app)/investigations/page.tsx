@@ -4,8 +4,8 @@ import type { Investigation } from '@synt/shared';
 import { ArrowRight, ShieldAlert } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { api } from '../../lib/api';
-import { cx, fmtStatus, severityPill, statusPill } from '../../lib/ui';
+import { api } from '@/lib/api';
+import { cx, fmtStatus, severityPill, statusPill } from '@/lib/ui';
 
 export default function InvestigationsPage() {
   const router = useRouter();

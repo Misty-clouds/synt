@@ -1,3 +1,4 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
 @import 'tailwindcss';
 
 /* ── Synt design system (PRD §11.1) ─────────────────────────────────────── */
@@ -24,13 +25,6 @@
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --shadow-brand: 0 0 0 1px rgba(0, 85, 255, 0.4), 0 8px 30px -8px rgba(0, 85, 255, 0.5);
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('https://api.fontshare.com/v2/fonts/satoshi/fonts/Satoshi-Variable.woff2') format('woff2');
-  font-weight: 300 900;
-  font-display: swap;
 }
 
 * {
@@ -156,13 +150,27 @@ body {
 .react-flow__attribution {
   display: none;
 }
+.react-flow__controls {
+  border: 1px solid var(--color-app-border) !important;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.6) !important;
+}
 .react-flow__controls-button {
-  background: var(--color-app-card);
-  border-color: var(--color-app-border);
-  color: #a1a1aa;
+  background: var(--color-app-card) !important;
+  border-bottom: 1px solid var(--color-app-border) !important;
+  color: #d4d4d8 !important;
+}
+.react-flow__controls-button svg {
+  fill: #d4d4d8 !important;
+  max-width: 14px;
+  max-height: 14px;
 }
 .react-flow__controls-button:hover {
-  background: var(--color-app-card-hover);
+  background: var(--color-app-card-hover) !important;
+}
+.react-flow__controls-button:hover svg {
+  fill: #fff !important;
 }
 @media (prefers-reduced-motion: reduce) {
   .react-flow__node {
