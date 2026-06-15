@@ -1,0 +1,27 @@
+{
+  "name": "@synt/splunk",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@synt/scenarios": "workspace:*",
+    "@synt/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@synt/typescript-config": "workspace:*",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.3"
+  }
+}

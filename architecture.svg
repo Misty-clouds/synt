@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="760" viewBox="0 0 1180 760" font-family="Segoe UI, system-ui, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#0055FF"/>
+    </marker>
+    <marker id="arrowM" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#6b7280"/>
+    </marker>
+    <style>
+      .panel { fill:#161616; stroke:#272727; }
+      .surf  { fill:#1c1c1c; stroke:#272727; }
+      .t     { fill:#ffffff; }
+      .m     { fill:#9ca3af; }
+      .b     { fill:#0055FF; }
+      .lbl   { fill:#6b7280; font-size:11px; }
+      .flow  { stroke:#0055FF; stroke-width:2; fill:none; }
+      .flowM { stroke:#6b7280; stroke-width:1.5; fill:none; stroke-dasharray:4 3; }
+      .h     { font-weight:700; }
+    </style>
+  </defs>
+
+  <rect width="1180" height="760" fill="#0a0a0a"/>
+  <text x="40" y="48" class="t h" font-size="24">Synt — Autonomous SOC Analyst</text>
+  <text x="40" y="70" class="m" font-size="13">Splunk = security data + agent tools (MCP) + reasoning (hosted models) · NestJS = OODA runtime + SSE · Next.js = Reasoning Theatre · MongoDB = state · R2 = PDF case files</text>
+
+  <!-- SPLUNK -->
+  <rect x="40" y="110" width="320" height="300" rx="16" class="panel"/>
+  <text x="60" y="140" class="t h" font-size="16">SPLUNK</text>
+  <text x="60" y="158" class="lbl">source of truth + tools + reasoning</text>
+  <rect x="60" y="174" width="280" height="58" rx="10" class="surf"/>
+  <text x="76" y="198" class="t" font-size="13">Indexes</text>
+  <text x="76" y="217" class="m" font-size="11">synt_auth · synt_network · synt_endpoint · synt_cloud</text>
+  <rect x="60" y="240" width="280" height="64" rx="10" class="surf"/>
+  <text x="76" y="264" class="t" font-size="13">MCP Server <tspan class="b">(the agent's hands)</tspan></text>
+  <text x="76" y="284" class="m" font-size="11">run_search · get_results · response actions</text>
+  <rect x="60" y="312" width="280" height="64" rx="10" class="surf"/>
+  <text x="76" y="336" class="t" font-size="13">Hosted Models <tspan class="b">(the agent's brain)</tspan></text>
+  <text x="76" y="356" class="m" font-size="11">hypotheses · NL→SPL · narrative · MITRE</text>
+
+  <!-- NESTJS API -->
+  <rect x="430" y="110" width="360" height="430" rx="16" class="panel"/>
+  <text x="450" y="140" class="t h" font-size="16">apps/api · NestJS</text>
+  <text x="450" y="158" class="lbl">agent runtime + SSE gateway</text>
+
+  <rect x="450" y="174" width="320" height="150" rx="12" fill="#101a33" stroke="#0055FF"/>
+  <text x="466" y="196" class="b h" font-size="13">AgentRunner — OODA loop (packages/agent)</text>
+  <text x="466" y="220" class="m" font-size="11">Observe → pull context (MCP)</text>
+  <text x="466" y="240" class="m" font-size="11">Orient → hypotheses (hosted model)</text>
+  <text x="466" y="260" class="m" font-size="11">Decide → NL→SPL (hosted model)</text>
+  <text x="466" y="280" class="m" font-size="11">Act → run SPL (MCP) → update belief</text>
+  <text x="466" y="300" class="m" font-size="11">Loop / Pivot until confident → CaseFile</text>
+
+  <rect x="450" y="334" width="155" height="52" rx="10" class="surf"/>
+  <text x="466" y="356" class="t" font-size="12">TriggerService</text>
+  <text x="466" y="374" class="lbl">inject → HEC seed</text>
+  <rect x="615" y="334" width="155" height="52" rx="10" class="surf"/>
+  <text x="631" y="356" class="t" font-size="12">SseGateway</text>
+  <text x="631" y="374" class="lbl">live TraceEvents</text>
+  <rect x="450" y="396" width="155" height="52" rx="10" class="surf"/>
+  <text x="466" y="418" class="t" font-size="12">CaseFileService</text>
+  <text x="466" y="436" class="lbl">PDF → R2</text>
+  <rect x="615" y="396" width="155" height="52" rx="10" class="surf"/>
+  <text x="631" y="418" class="t" font-size="12">ResponseService</text>
+  <text x="631" y="436" class="lbl">approval gate → MCP</text>
+  <rect x="450" y="458" width="320" height="52" rx="10" class="surf"/>
+  <text x="466" y="480" class="t" font-size="12">NlService</text>
+  <text x="466" y="498" class="lbl">plain-English steering → hosted model → re-pivot</text>
+
+  <!-- NEXT WEB -->
+  <rect x="860" y="110" width="280" height="300" rx="16" class="panel"/>
+  <text x="880" y="140" class="t h" font-size="16">apps/web · Next.js</text>
+  <text x="880" y="158" class="lbl">Reasoning Theatre</text>
+  <rect x="880" y="174" width="240" height="46" rx="10" class="surf"/>
+  <text x="896" y="202" class="t" font-size="12">Thought stream (SSE)</text>
+  <rect x="880" y="228" width="240" height="46" rx="10" class="surf"/>
+  <text x="896" y="256" class="t" font-size="12">Self-assembling graph</text>
+  <rect x="880" y="282" width="240" height="46" rx="10" class="surf"/>
+  <text x="896" y="310" class="t" font-size="12">Case file + Approve / Reject</text>
+  <rect x="880" y="336" width="240" height="46" rx="10" class="surf"/>
+  <text x="896" y="364" class="t" font-size="12">NL command box</text>
+
+  <!-- DATA STORES -->
+  <rect x="860" y="450" width="135" height="90" rx="14" class="panel"/>
+  <text x="878" y="478" class="t h" font-size="13">MongoDB</text>
+  <text x="878" y="498" class="lbl">investigations</text>
+  <text x="878" y="514" class="lbl">traces · caseFiles</text>
+  <text x="878" y="530" class="lbl">approvals</text>
+  <rect x="1005" y="450" width="135" height="90" rx="14" class="panel"/>
+  <text x="1023" y="478" class="t h" font-size="13">Cloudflare R2</text>
+  <text x="1023" y="498" class="lbl">PDF case files</text>
+  <text x="1023" y="514" class="lbl">download links</text>
+
+  <!-- FLOWS: API <-> Splunk -->
+  <path class="flow" d="M430,250 C400,250 380,250 362,250" marker-end="url(#arrow)"/>
+  <text x="372" y="242" class="lbl">SPL / actions (MCP)</text>
+  <path class="flow" d="M362,345 C390,345 410,300 430,290" marker-end="url(#arrow)"/>
+  <text x="360" y="372" class="lbl">reasoning (models)</text>
+
+  <!-- inject seed via HEC -->
+  <path class="flowM" d="M450,360 C410,360 390,210 360,205" marker-end="url(#arrowM)"/>
+  <text x="250" y="150" class="lbl">inject → HEC seed</text>
+
+  <!-- API -> web SSE -->
+  <path class="flow" d="M790,250 C825,250 845,250 860,250" marker-end="url(#arrow)"/>
+  <text x="792" y="242" class="lbl">SSE + REST</text>
+  <!-- web -> API approve/command -->
+  <path class="flowM" d="M860,330 C828,330 815,420 790,430" marker-end="url(#arrowM)"/>
+  <text x="792" y="332" class="lbl">approve / command</text>
+
+  <!-- API -> Mongo -->
+  <path class="flowM" d="M620,540 C700,560 780,520 858,505" marker-end="url(#arrowM)"/>
+  <text x="660" y="575" class="lbl">persist trace + state</text>
+  <!-- API -> R2 -->
+  <path class="flow" d="M610,420 C760,430 940,440 1015,448" marker-end="url(#arrow)"/>
+  <text x="700" y="412" class="lbl">PDF case file</text>
+
+  <text x="40" y="720" class="lbl" font-size="12">Numbered flow: (1) trigger/inject seeds Splunk via HEC → Signal · (2) OODA loop queries Splunk over MCP + reasons with hosted models · (3) every TraceEvent persisted to Mongo and streamed to the Theatre over SSE</text>
+  <text x="40" y="740" class="lbl" font-size="12">· (4) completed case file rendered to PDF, stored in R2 · (5) analyst approves a response → ResponseService executes it via the MCP Server (or records a simulated action).</text>
+</svg>

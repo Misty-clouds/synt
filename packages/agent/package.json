@@ -1,0 +1,30 @@
+{
+  "name": "@synt/agent",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "verify": "tsx src/verify.ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@synt/scenarios": "workspace:*",
+    "@synt/shared": "workspace:*",
+    "@synt/splunk": "workspace:*"
+  },
+  "devDependencies": {
+    "@synt/typescript-config": "workspace:*",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}

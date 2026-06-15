@@ -1,17 +1,118 @@
-:root {
-  color-scheme: light dark;
+@import 'tailwindcss';
+
+/* ── Synt design system (PRD §11.1) ─────────────────────────────────────── */
+@theme inline {
+  --color-app-bg: #0a0a0a;
+  --color-app-surface: #111111;
+  --color-app-card: #161616;
+  --color-app-card-hover: #202020;
+  --color-app-card-alt: #1c1c1c;
+  --color-app-border: #272727;
+  --color-brand: #0055ff;
+
+  --font-sans: 'Satoshi', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --shadow-brand: 0 0 0 1px rgba(0, 85, 255, 0.4), 0 8px 30px -8px rgba(0, 85, 255, 0.5);
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('https://api.fontshare.com/v2/fonts/satoshi/fonts/Satoshi-Variable.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
 }
 
 * {
   box-sizing: border-box;
+  border-color: var(--color-app-border);
 }
 
+html,
 body {
   margin: 0;
-  font-family:
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  padding: 0;
+  background: var(--color-app-bg);
+  color: #fff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(0, 85, 255, 0.35);
+}
+
+/* Slim scrollbars for the dark theatre */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #272727;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
+
+@keyframes synt-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes synt-pop-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes synt-glow {
+  0% {
+    background-color: rgba(0, 85, 255, 0.18);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+@keyframes synt-dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.synt-new {
+  animation: synt-glow 1.6s ease-out forwards;
+}
+.synt-node-in {
+  animation: synt-pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.synt-edge-in {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: synt-dash 0.7s ease-out forwards;
+}
+.synt-pulse {
+  animation: synt-pulse 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .synt-new,
+  .synt-node-in,
+  .synt-edge-in,
+  .synt-pulse {
+    animation: none;
+  }
 }

@@ -1,17 +1,19 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { MobileGate } from '../components/MobileGate';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "synt",
-  description: "Next.js + NestJS Turborepo",
+  title: 'Synt — Autonomous SOC Analyst',
+  description: 'Synt investigates Splunk alerts autonomously and hands you a finished case file.',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="min-h-screen bg-app-bg text-white antialiased">
+        <MobileGate />
+        <div className="hidden lg:block">{children}</div>
+      </body>
     </html>
   );
 }
