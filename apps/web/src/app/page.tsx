@@ -4,7 +4,6 @@ import type { Investigation } from '@synt/shared';
 import { Activity, AlertTriangle, ArrowRight, CheckCircle2, Clock, Loader2, Zap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Wordmark } from '../components/Wordmark';
 import { api, type ScenarioMeta } from '../lib/api';
 import { cx, fmtStatus, severityPill, statusPill } from '../lib/ui';
 
@@ -44,8 +43,11 @@ export default function Dashboard() {
     <div className="grid min-h-screen grid-cols-[1fr_340px]">
       {/* Main */}
       <main className="border-r border-app-border">
-        <header className="flex items-center justify-between border-b border-app-border px-8 py-5">
-          <Wordmark />
+        <header className="flex items-center justify-between border-b border-app-border px-8 py-[1.1rem]">
+          <div>
+            <h1 className="text-lg font-bold tracking-tight">Operations</h1>
+            <p className="text-xs text-zinc-500">Autonomous SOC — live investigations</p>
+          </div>
           <span className="flex items-center gap-2 rounded-full border border-app-border px-3 py-1 text-xs text-zinc-400">
             <span className="h-2 w-2 rounded-full bg-green-500" /> live
           </span>

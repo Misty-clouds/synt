@@ -12,10 +12,16 @@ build
 # turbo
 .turbo
 
-# env
+# env — ignore real env files, but KEEP .env.example committed (reviewer reference)
 .env
 .env.local
 .env.*.local
+.env.prod
+!.env.example
+!**/.env.example
+
+# design reference app dropped in at repo root (not part of the build)
+/web/
 
 # logs
 *.log

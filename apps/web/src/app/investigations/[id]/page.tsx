@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { CaseFileView } from '../../../components/CaseFileView';
-import { ForceGraph } from '../../../components/ForceGraph';
+import { InvestigationGraph } from '../../../components/InvestigationGraph';
 import { HypothesisRail } from '../../../components/HypothesisRail';
 import { NlCommandBox } from '../../../components/NlCommandBox';
 import { ThoughtStream } from '../../../components/ThoughtStream';
@@ -92,7 +92,7 @@ export default function TheatrePage() {
             </span>
           </div>
           <div className="h-[calc(100%-49px)]">
-            <ForceGraph nodes={stream.nodes} edges={stream.edges} focusNodeId={stream.focusNodeId} />
+            <InvestigationGraph nodes={stream.nodes} edges={stream.edges} focusNodeId={stream.focusNodeId} />
           </div>
         </section>
 

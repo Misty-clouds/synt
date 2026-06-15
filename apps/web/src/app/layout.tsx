@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import { AppShell } from '../components/AppShell';
 import { MobileGate } from '../components/MobileGate';
+import { SidebarProvider } from '../components/SidebarContext';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -12,7 +14,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className="min-h-screen bg-app-bg text-white antialiased">
         <MobileGate />
-        <div className="hidden lg:block">{children}</div>
+        <div className="hidden lg:block">
+          <SidebarProvider>
+            <AppShell>{children}</AppShell>
+          </SidebarProvider>
+        </div>
       </body>
     </html>
   );

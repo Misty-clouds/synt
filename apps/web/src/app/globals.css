@@ -116,3 +116,31 @@ body {
     animation: none;
   }
 }
+
+/* ── React Flow dark theme + self-assembling motion ─────────────────────── */
+.react-flow {
+  background: var(--color-app-surface);
+}
+.react-flow__node {
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.react-flow__edge-text {
+  font-family: var(--font-mono);
+}
+.react-flow__attribution {
+  display: none;
+}
+.react-flow__controls-button {
+  background: var(--color-app-card);
+  border-color: var(--color-app-border);
+  color: #a1a1aa;
+}
+.react-flow__controls-button:hover {
+  background: var(--color-app-card-hover);
+}
+@media (prefers-reduced-motion: reduce) {
+  .react-flow__node {
+    transition: none;
+  }
+}
