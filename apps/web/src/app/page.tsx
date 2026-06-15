@@ -122,7 +122,7 @@ export default function Dashboard() {
                 </span>
                 {inv.status === 'responded' && <Zap size={12} className="ml-auto text-green-500" />}
               </div>
-              <p className="line-clamp-2 text-xs text-zinc-300">{inv.signal.title}</p>
+              <p className="line-clamp-2 text-xs text-muted">{inv.signal.title}</p>
             </button>
           ))}
         </div>
@@ -143,10 +143,12 @@ function Stat({
   tone?: string;
 }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-app-border bg-app-card p-5 shadow-lg">
-      <Icon size={16} className={cx('mb-3', tone ?? 'text-zinc-500')} />
-      <p className="text-2xl font-bold tracking-tight">{value}</p>
-      <p className="mt-1 text-xs text-zinc-500">{label}</p>
+    <div className="relative overflow-hidden rounded-2xl border border-app-border bg-app-card p-5 shadow-lg transition-transform hover:scale-[1.01]">
+      <span className="mb-4 flex h-9 w-9 items-center justify-center rounded-full border border-app-border bg-app-card-alt">
+        <Icon size={15} className={tone ?? 'text-muted'} />
+      </span>
+      <p className="text-3xl font-semibold tracking-tight">{value}</p>
+      <p className="mt-1 text-xs text-dim">{label}</p>
     </div>
   );
 }

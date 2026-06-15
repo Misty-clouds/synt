@@ -8,7 +8,17 @@
   --color-app-card-hover: #202020;
   --color-app-card-alt: #1c1c1c;
   --color-app-border: #272727;
+  --color-app-border-muted: rgba(255, 255, 255, 0.05);
+
   --color-brand: #0055ff;
+  --color-brand-muted: #0f3470;
+  --color-brand-text: #4b7fc7;
+
+  /* Suite text scale — calmer, more premium than raw zinc */
+  --color-ink: #ffffff;
+  --color-muted: #8a939b;
+  --color-dim: #6b7280;
+  --color-faint: #4b5158;
 
   --font-sans: 'Satoshi', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -90,6 +100,20 @@ body {
     stroke-dashoffset: 0;
   }
 }
+@keyframes synt-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.synt-reveal {
+  animation: synt-reveal 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 
 .synt-new {
   animation: synt-glow 1.6s ease-out forwards;
@@ -112,7 +136,8 @@ body {
   .synt-new,
   .synt-node-in,
   .synt-edge-in,
-  .synt-pulse {
+  .synt-pulse,
+  .synt-reveal {
     animation: none;
   }
 }
